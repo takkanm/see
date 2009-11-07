@@ -4,6 +4,7 @@
 require 'rubygems'
 require 'httparty'
 require 'pit'
+require 'optparse'
 
 class Twitter
   include HTTParty
@@ -16,5 +17,12 @@ class Twitter
   format :xml
 end
 
-see = ARGV.map {|arg| "@#{arg}" }.join(" ") + " <〇> <〇>"
+msg = ""
+ARGV.options do |opt|
+  opt.on('-m msg') {|m| msg << m }
+
+  opt.parse!
+end
+
+see = ARGV.map {|arg| "@#{arg}" }.join(" ") + " <〇> <〇> #{msg}"
 Twitter.post('/statuses/update.xml', :query => {:status => see})
