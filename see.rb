@@ -20,6 +20,7 @@ end
 msg = ""
 ARGV.options do |opt|
   opt.on('-m msg') {|m| msg << m }
+  opt.on('-g') {|b| msg << "ｺﾞｺﾞｺﾞ" }
 
   opt.parse!
 end
