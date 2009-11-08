@@ -19,16 +19,18 @@ end
 
 msg = ""
 pupil ="◯"
+space = " "
 ARGV.options do |opt|
   opt.on('-m msg') {|m| msg << m }
   opt.on('-g') {|b| msg << "ｺﾞｺﾞｺﾞ" }
   opt.on('-o') {|b| msg << "おはよう" }
   opt.on('-c') {|b| pupil = "・" }
+  opt.on('-s num') {|num| space = space * num.to_i}
 
   opt.parse!
 end
 
-eye = (["<#{pupil}>"]*2).join(" ")
+eye = (["<#{pupil}>"]*2).join(space)
 
 see = ARGV.map {|arg| "@#{arg}" }.join(" ") + " #{eye} #{msg}"
 Twitter.post('/statuses/update.xml', :query => {:status => see})
